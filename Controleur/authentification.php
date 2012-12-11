@@ -35,7 +35,7 @@
 			$erreur = 2;	//login incorrect
 		}
 		$expiration = time() + (3600);
-		echo "{TOKEN:'".$token."'; EXPIRATION:'".$expiration."';ERREUR:".$erreur."}";
+		echo '{"TOKEN":"'.$token.'", "EXPIRATION":"'.$expiration.'","ERREUR":'.$erreur.'}';
 	}
 	
 	
