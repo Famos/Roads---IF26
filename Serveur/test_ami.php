@@ -2,6 +2,7 @@
 	require('./functions.inc.php');
 	$erreur = 1;	//Si pas changé : erreur de paramètre
 	if(!empty($_POST["login"])&&!empty($_POST["ami"])){
+        $erreur = 0;
 		$login = $_POST["login"];
 		$ami = $_POST["ami"];
 		
@@ -14,19 +15,15 @@
             $requete->execute();
             $donnees = $requete->fetchAll();
             if($donnees[0][0]!= null && $donnees[0][0] != ""){
-                $erreur = 3; //erreur dŽjˆ amis
+                $retour = 3; // DŽjˆ amis
             }else{
-                $requete = $bdd->prepare("INSERT INTO ami(id_utilisateur_1, id_utilisateur_2) VALUES(:id_1, :id_2),(:id_2, :id_1);");
-                $requete->bindValue(':id_1', $id_utilisateur, PDO::PARAM_INT);
-                $requete->bindValue(':id_2', $id_ami, PDO::PARAM_INT);
-                $requete->execute();
-                $erreur = 0;	//Pas d'erreur
+                $retour = 1;	//Pas encore ami
             }
         }
         else{
-            $erreur = 2;    //erreur ami inexistant
+            $retour = 2;    //Ami inexistant
         }
 	}
-	echo '{"ID":'.$CODE_AJOUT_AMI.',"ERREUR":'.$erreur.'}';
+	echo '{"ID":'.$CODE_TEST_AMI.',"ERREUR":'.$erreur.',"CODE":'.$retour.'}';
 	
 ?>

@@ -1,7 +1,5 @@
 <?php
-	$bdd = new PDO('mysql:host=localhost;dbname=Roads', 'root', '');
-	// $bdd = new PDO('mysql:host=localhost;dbname=Roads', 'antoine', 'a7rd8F');
-
+    $bdd = new PDO('mysql:host=localhost;dbname=Roads', 'root', 'root');
 	//VARIABLES GLOBALES :
 	
 	//Codes d'identification serveur :
@@ -11,18 +9,30 @@
 	$CODE_GET_AMI = 4;
 	$CODE_MAJ_POS = 5;
 	$CODE_CACHE_POS = 6;
-	$CODE_GET_AMIS = 7;
+    $CODE_AFFICHE_POS = 7;
+	$CODE_GET_AMIS = 8;
+    $CODE_GET_LOC = 9;
+    $CODE_GET_UTILISATEUR = 10;
+    $CODE_MASQUE_POS = 11;
+    $CODE_AFFICHE_POS = 12;
+    $CODE_TEST_AMI = 13;
+    $CODE_TEST_POS = 14;
+
+
+
 	
 
 	function getId($login){
-		$requete = $bdd->prepare("SELECT id FROM Utilisateur WHERE login=:login");
-		$requete -> bindValue(':login', $login, PDO::PARAM_STR);
+        $bdd = new PDO('mysql:host=localhost;dbname=Roads', 'root', 'root');
+		$requete = $bdd->prepare("SELECT id FROM utilisateur WHERE login=:login");
+        $requete -> bindValue(':login', $login, PDO::PARAM_STR);
 		$requete -> execute();
 		$donnees = $requete->fetchAll();
 		return $donnees[0]['id'];
 	}
 	
 	function getAmi($id_utilisateur, $id_ami){
+        $bdd = new PDO('mysql:host=localhost;dbname=Roads', 'root', 'root');
 		$requete = $bdd->prepare("SELECT u.id, u.login, l.latitude, l.longitude, l.date FROM ami as a, utilisateur as u, localisation as l WHERE a.id_utilisateur_1 = :id AND a.id_utilisateur_2 = :id_ami AND u.id = a.id_utilisateur_2 AND u.localisation = 1 AND l.id_utilisateur = u.id");
 		$requete -> bindValue(':id', $id_utilisateur, PDO::PARAM_INT);
 		$requete -> bindValue(':id_ami', $id_ami, PDO::PARAM_INT);
@@ -32,6 +42,7 @@
 	}
 
 	function getAmis($id_utilisateur){
+        $bdd = new PDO('mysql:host=localhost;dbname=Roads', 'root', 'root');
 		$requete = $bdd->prepare("SELECT u.id, u.login, l.latitude, l.longitude, l.date FROM ami as a, utilisateur as u, localisation as l WHERE a.id_utilisateur_1 = :id AND u.id = a.id_utilisateur_2 AND u.localisation = 1 AND l.id_utilisateur = u.id");
 		$requete -> bindValue(':id', $id_utilisateur, PDO::PARAM_INT);
 		$requete -> execute();

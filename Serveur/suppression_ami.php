@@ -1,10 +1,10 @@
 <?php
-	include('functions.inc.php');
+	require('./functions.inc.php');
 	$erreur = 1;	//Si pas changé : erreur de paramètre
 
-	if(!empty($_GET["login"])&&!empty($_GET["ami"])){
-		$login = $_GET["login"];
-		$ami = $_GET["ami"];
+	if(!empty($_POST["login"])&&!empty($_POST["ami"])){
+		$login = $_POST["login"];
+		$ami = $_POST["ami"];
 		
 		$id_utilisateur = getId($login); 
 		$id_ami = getId($ami);

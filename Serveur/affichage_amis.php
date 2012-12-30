@@ -1,12 +1,12 @@
 <?php
-	include('functions.inc.php');
+	require('./functions.inc.php');
 
-	if(!empty($_GET["login"])){
-		$login = $_GET["login"];
+	if(!empty($_POST["login"])){
+		$login = $_POST["login"];
 		
 		$id_utilisateur = getId($login); 
 		$donnees = getAmis($id_utilisateur);
-		echo '["":';
+		echo '[';
 		$first=true;
 		for($i=0;$i<count($donnees) ; $i++){
 			if($first){
