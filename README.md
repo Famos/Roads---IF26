@@ -14,4 +14,14 @@ TO DO LIST :
 
 - Inscription
 
-- Gestions des Tokens, des codes de retour...
+- Système de notifications (pour demander la MAJ de sa position à un ami)
+
+- Popup de validation pour la suppression d'un ami
+
+- Confirmation de l'ami lors de l'ajout d'un ami
+
+- Décryptage du code avant l'envoie au serveur lors de la connexion automatique
+
+- Gestions des codes de retour...
+
+Projet terminé dans le cadre de l'UV.

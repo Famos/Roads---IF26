@@ -40,16 +40,35 @@
 		$donnees = $requete->fetchAll();
 		return $donnees[0];
 	}
+    
+    function getAmiVisibilite($id_utilisateur, $id_ami){
+        $bdd = new PDO('mysql:host=localhost;dbname=Roads', 'root', 'root');
+		$requete = $bdd->prepare("SELECT a.visibilite FROM ami as a WHERE a.id_utilisateur_1 = :id_ami AND a.id_utilisateur_2 = :id");
+		$requete -> bindValue(':id', $id_utilisateur, PDO::PARAM_INT);
+		$requete -> bindValue(':id_ami', $id_ami, PDO::PARAM_INT);
+		$requete -> execute();
+		$donnees = $requete->fetchAll();
+		return $donnees[0];
+	}
 
 	function getAmis($id_utilisateur){
         $bdd = new PDO('mysql:host=localhost;dbname=Roads', 'root', 'root');
-		$requete = $bdd->prepare("SELECT u.id, u.login, l.latitude, l.longitude, l.date FROM ami as a, utilisateur as u, localisation as l WHERE a.id_utilisateur_1 = :id AND u.id = a.id_utilisateur_2 AND u.localisation = 1 AND l.id_utilisateur = u.id");
+		$requete = $bdd->prepare("SELECT u.id, u.login, l.latitude, l.longitude, l.date FROM ami as a, utilisateur as u, localisation as l WHERE a.id_utilisateur_2 = :id AND u.id = a.id_utilisateur_1 AND u.localisation = 1 AND l.id_utilisateur = u.id AND a.visibilite = 1");
 		$requete -> bindValue(':id', $id_utilisateur, PDO::PARAM_INT);
 		$requete -> execute();
 		$donnees = $requete->fetchAll();
 		return $donnees;
 	}
 
+    function getToken($id_utilisateur){
+        $bdd = new PDO('mysql:host=localhost;dbname=Roads', 'root', 'root');
+		$requete = $bdd->prepare("SELECT token FROM utilisateur WHERE id = :id");
+		$requete -> bindValue(':id', $id_utilisateur, PDO::PARAM_INT);
+		$requete -> execute();
+		$donnees = $requete->fetchAll();
+		return $donnees[0][0];
+    }
+    
 	function random_str($nbr){
 		$str = "";
 		$chaine = "abcdefghijklmnpqrstuvwxyz0123456789";
